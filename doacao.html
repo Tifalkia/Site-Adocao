@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- CSS próprio da página de doação -->
+    <link rel="stylesheet" href="style-doacao.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <title>Amigo Pet - Doação</title>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="navbar-container">
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined logo-icon">pets</span>
+            <h2 class="text-marrom-principal text-xl font-bold">Amigo Pet</h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="adote.html">Adote</a>
+            <a href="about.html">Sobre nós</a>
+            <a href="doacao.html" class="active">Doar</a>
+        </div>
+
+        <button class="nav-button">
+            <span class="material-symbols-outlined">favorite</span>
+        </button>
+    </div>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main style="padding: 2rem 0;">
+    <div class="container-pequeno">
+
+        <!-- HERO SECTION -->
+        <div class="hero">
+            <div class="hero-overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAE15dkYxtyLrpcD3BcVJZWs9KHMBwiPN3c6G9EkHsolVb3bm_OIHFrVRb_uFTk7GR9mRF0F9kxWwJy9mn-EV5jxvmzQ5bu1yy9mp4wVDZoNyLRoyMmL22AoXRmiywrRR-On_vtq1_Vy3H1gMgiQL6de1NwIN5v1tz5xrTap1ucByj34V3gi-LzlMWBeNHuaOZANmbuzp-BfaBuE8KqzwZNXtBwZrb_n4MwGfW2giQ3So5_13271mpmZXZzsJJIpFlwAmIdE3AgjAk')"></div>
+            <div class="hero-gradient"></div>
+            <div class="hero-content">
+                <h1>Faça a Diferença</h1>
+                <p>Sua doação ajuda a transformar a vida de centenas de animais resgatados. Juntos, podemos dar a eles o futuro que merecem.</p>
+            </div>
+        </div>
+
+        <!-- GRID PRINCIPAL -->
+        <div style="display: grid; grid-template-columns: 1fr; gap: 2rem;">
+            
+            <!-- COLUNA DA ESQUERDA (FORMULÁRIO) -->
+            <div style="grid-column: span 1;">
+                <div class="donation-card">
+                    
+                    <!-- SEÇÃO: ESCOLHA O VALOR -->
+                    <section style="margin-bottom: 2rem;">
+                        <h3 class="section-title">
+                            <span class="material-symbols-outlined section-icon">payments</span>
+                            Escolha um valor para doar
+                        </h3>
+                        
+                        <div class="value-buttons" id="valueButtons">
+                            <button class="value-btn" onclick="selectValue(20)" id="btn20">R$ 20</button>
+                            <button class="value-btn active" onclick="selectValue(50)" id="btn50">R$ 50</button>
+                            <button class="value-btn" onclick="selectValue(100)" id="btn100">R$ 100</button>
+                        </div>
+                        
+                        <div class="input-group">
+                            <label for="otherValue">Outro valor</label>
+                            <div class="input-wrapper">
+                                <span class="input-prefix">R$</span>
+                                <input type="number" id="otherValue" class="input-field" placeholder="0,00" oninput="customValue(this.value)">
+                            </div>
+                        </div>
+                    </section>
+                    
+                    <!-- SEÇÃO: MÉTODO DE PAGAMENTO -->
+                    <section style="margin-bottom: 2rem;">
+                        <h3 class="section-title">
+                            <span class="material-symbols-outlined section-icon">credit_card</span>
+                            Método de Pagamento
+                        </h3>
+                        
+                        <div class="payment-grid" id="paymentMethods">
+                            <label class="payment-option selected" id="pixOption" onclick="selectPayment('pix')">
+                                <input type="radio" name="payment" value="pix" class="payment-radio" checked>
+                                <div class="payment-info">
+                                    <span class="payment-name">Pix</span>
+                                    <span class="payment-desc">Aprovação instantânea</span>
+                                </div>
+                                <span class="material-symbols-outlined payment-icon">qr_code_2</span>
+                            </label>
+                            
+                            <label class="payment-option" id="cardOption" onclick="selectPayment('card')">
+                                <input type="radio" name="payment" value="card" class="payment-radio">
+                                <div class="payment-info">
+                                    <span class="payment-name">Cartão de Crédito</span>
+                                    <span class="payment-desc">Em até 12x</span>
+                                </div>
+                                <span class="material-symbols-outlined payment-icon">credit_card</span>
+                            </label>
+                        </div>
+                    </section>
+                    
+                    <!-- BOTÃO FINALIZAR -->
+                    <button class="btn-doar" onclick="finalizarDoacao()">
+                        Finalizar Doação
+                    </button>
+                    
+                    <!-- MENSAGEM DE CONFIRMAÇÃO -->
+                    <div id="mensagemConfirmacao" style="margin-top: 1rem; padding: 1rem; border-radius: 0.5rem; display: none;"></div>
+                    
+                </div>
+            </div>
+            
+            <!-- COLUNA DA DIREITA (IMPACTO) -->
+            <div style="grid-column: span 1;">
+                
+                <!-- CARD DE COMO AJUDAMOS -->
+                <div class="impact-card" style="margin-bottom: 1.5rem;">
+                    <h3 class="impact-title">Como ajudamos?</h3>
+                    
+                    <div class="impact-list">
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <span class="material-symbols-outlined">restaurant</span>
+                            </div>
+                            <div>
+                                <h4>Alimentação</h4>
+                                <p>Garantimos ração de qualidade para mais de 150 cães e gatos diariamente.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <span class="material-symbols-outlined">medical_services</span>
+                            </div>
+                            <div>
+                                <h4>Cuidados Médicos</h4>
+                                <p>Vacinação, castração e atendimentos de emergência para animais resgatados.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="impact-item">
+                            <div class="impact-icon">
+                                <span class="material-symbols-outlined">home</span>
+                            </div>
+                            <div>
+                                <h4>Abrigo & Conforto</h4>
+                                <p>Manutenção de espaços seguros e limpos enquanto esperam por um lar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- CARD DE DEPOIMENTO -->
+                <div class="testimonial-card">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqnC5kAVueW-0KWvfso_gXpgDoJyvfgMsWsorNcBhEUsfKgD6jA0qvblKl0pcaOaeE-Qut43lZgXnO9iUlsaCgQ5PdvWiIuzD7o7aApo2WMmfjDt-H_L6JbNn2RxmQHeLZoCWwdr1zmBG2BoYWA0UDvbSBTz9oWG-7XaugdmaSt_Ou10NMnJvyqRUDyxMS_Lxy4ChNQ9ynPZ_rfjOKu79UfzwqMleBMK1oWr9ah8E1b7ctoRP0qoAjijNhAAzil4_z8ipKEmSk_aI" alt="Cachorrinhos felizes">
+                    <div class="testimonial-overlay"></div>
+                    <div class="testimonial-content">
+                        <p class="testimonial-label">Impacto Real</p>
+                        <p class="testimonial-text">"Graças às doações, o Totó recuperou a visão."</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- RODAPÉ DE TRANSPARÊNCIA -->
+        <div class="footer-note">
+            <p>Amigo Pet é uma organização sem fins lucrativos. 100% da sua doação é direcionada para o bem-estar animal. Emitimos recibos de doação para fins fiscais.</p>
+            
+            <div class="footer-icons">
+                <div>
+                    <span class="material-symbols-outlined">verified_user</span>
+                    <span>Site Seguro</span>
+                </div>
+                <div>
+                    <span class="material-symbols-outlined">transcribe</span>
+                    <span>Transparência Total</span>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</main>
+
+<script>
+    // Variáveis para controle
+    let valorSelecionado = 50;
+    let pagamentoSelecionado = 'pix';
+    
+    // Função para selecionar valor
+    function selectValue(valor) {
+        valorSelecionado = valor;
+        
+        // Remove classe active de todos
+        document.getElementById('btn20').classList.remove('active');
+        document.getElementById('btn50').classList.remove('active');
+        document.getElementById('btn100').classList.remove('active');
+        
+        // Adiciona classe active no selecionado
+        document.getElementById('btn' + valor).classList.add('active');
+        
+        // Limpa o campo de outro valor
+        document.getElementById('otherValue').value = '';
+    }
+    
+    // Função para valor personalizado
+    function customValue(valor) {
+        if (valor && valor > 0) {
+            valorSelecionado = parseFloat(valor);
+            
+            // Remove classe active de todos os botões
+            document.getElementById('btn20').classList.remove('active');
+            document.getElementById('btn50').classList.remove('active');
+            document.getElementById('btn100').classList.remove('active');
+        }
+    }
+    
+    // Função para selecionar pagamento
+    function selectPayment(tipo) {
+        pagamentoSelecionado = tipo;
+        
+        // Remove selected de ambos
+        document.getElementById('pixOption').classList.remove('selected');
+        document.getElementById('cardOption').classList.remove('selected');
+        
+        // Adiciona selected no escolhido
+        document.getElementById(tipo + 'Option').classList.add('selected');
+        
+        // Marca o radio button
+        document.querySelector(`input[name="payment"][value="${tipo}"]`).checked = true;
+    }
+    
+    // Função para finalizar doação
+    function finalizarDoacao() {
+        const mensagemDiv = document.getElementById('mensagemConfirmacao');
+        
+        // Verifica se tem usuário logado
+        const usuarioLogado = localStorage.getItem('usuarioLogado');
+        
+        if (!usuarioLogado) {
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.style.backgroundColor = '#f8d7da';
+            mensagemDiv.style.color = '#721c24';
+            mensagemDiv.style.border = '1px solid #f5c6cb';
+            mensagemDiv.innerHTML = '❌ Você precisa estar logado para fazer uma doação. <a href="entrar.html" style="color: #721c24; font-weight: bold;">Fazer login</a>';
+            return;
+        }
+        
+        const usuario = JSON.parse(usuarioLogado);
+        const metodo = pagamentoSelecionado === 'pix' ? 'Pix' : 'Cartão de Crédito';
+        
+        // Formata o valor
+        const valorFormatado = valorSelecionado.toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+        
+        // Mostra mensagem de sucesso
+        mensagemDiv.style.display = 'block';
+        mensagemDiv.style.backgroundColor = '#d4edda';
+        mensagemDiv.style.color = '#155724';
+        mensagemDiv.style.border = '1px solid #c3e6cb';
+        mensagemDiv.innerHTML = `
+            ✅ Obrigado pela doação, ${usuario.nome}!<br>
+            Valor: ${valorFormatado}<br>
+            Pagamento: ${metodo}<br>
+            <small>Um recibo foi enviado para seu e-mail.</small>
+        `;
+        
+        // Esconde a mensagem após 5 segundos
+        setTimeout(() => {
+            mensagemDiv.style.display = 'none';
+        }, 5000);
+    }
+    
+    // Verificar se já está logado ao carregar a página
+    window.onload = function() {
+        const usuarioLogado = localStorage.getItem('usuarioLogado');
+        if (usuarioLogado) {
+            const usuario = JSON.parse(usuarioLogado);
+            console.log('Usuário logado:', usuario.nome);
+        }
+    }
+</script>
+
+</body>
+</html>

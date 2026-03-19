@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- CSS próprio da página de login -->
+    <link rel="stylesheet" href="style-entrar.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <title>Amigo Pet - Entrar</title>
+</head>
+<body>
+
+<div class="login-container">
+    <!-- Lado Esquerdo: Imagem -->
+    <div class="login-left">
+        <div class="login-overlay"></div>
+        <div class="login-content">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="p-2 bg-branco-puro bg-opacity-20 rounded-lg">
+                    <span class="material-symbols-outlined text-3xl">pets</span>
+                </div>
+                <h1 class="text-3xl font-bold">Amigo Pet</h1>
+            </div>
+            <h2 class="text-5xl font-bold leading-tight mb-4">Mude uma vida, adote um amigo.</h2>
+            <p class="text-xl">Conectamos corações e encontramos lares para animais que precisam de uma chance.</p>
+        </div>
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCu2_6lk8anX9zyZcng_QwEvxuWTnzgvY8jYkxyZQu3VrrGsca-GcPQT7u8NteGcNhgdMTRRLtun2sx7vgV6xeFcQUQx0Z7EI8c5z8-DVI6leYcM7F36mtbCz1HrivpLGv0MI7vn1BpS53TwxeudvtPs20_o9K1XlK-nknqcznhODPTBs-6Si0nQre_gHrxOXbj05yZjmWOiDEP_kexrKbstqDKTtOEccTTL6qUrcGNv5L6IY5pL6xcZbvrq_OxqO5VJnn_CxnQNmE" alt="Cachorro feliz">
+    </div>
+    
+    <!-- Lado Direito: Formulário -->
+    <div class="login-right">
+        <div class="login-form-container">
+            <!-- Logo mobile -->
+            <div class="flex items-center gap-2 mb-10 lg-hide">
+                <span class="material-symbols-outlined text-marrom-principal text-3xl">pets</span>
+                <span class="text-xl font-bold text-marrom-principal">Amigo Pet</span>
+            </div>
+            
+            <!-- Título -->
+            <div class="mb-10">
+                <h2 class="text-3xl font-bold text-marrom-principal mb-2" id="formTitle">Bem-vindo de volta!</h2>
+                <p class="text-marrom-principal opacity-60" id="formSubtitle">Faça login para continuar ajudando nossos patudos.</p>
+            </div>
+            
+            <!-- Tabs -->
+            <div class="login-tabs">
+                <button id="tabLogin" class="tab tab-active" onclick="showLogin()">Entrar</button>
+                <button id="tabCadastro" class="tab tab-inactive" onclick="showCadastro()">Criar Conta</button>
+            </div>
+            
+            <!-- Área de alerta -->
+            <div id="alert" class="alert"></div>
+            
+            <!-- Formulário de Login -->
+            <div id="loginForm">
+                <form onsubmit="fazerLogin(event)">
+                    <div class="input-group">
+                        <label for="loginEmail">E-mail</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">mail</span>
+                            <input type="email" id="loginEmail" class="input-field" placeholder="seu@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <div class="flex justify-between items-center">
+                            <label for="loginPassword">Senha</label>
+                            <a href="#" class="forgot-password">Esqueceu a senha?</a>
+                        </div>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" id="loginPassword" class="input-field" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Lembrar de mim</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-login">
+                        Acessar minha conta
+                    </button>
+                </form>
+            </div>
+            
+            <div id="cadastroForm" style="display: none;">
+                <form onsubmit="fazerCadastro(event)">
+                    <div class="input-group">
+                        <label for="cadastroNome">Nome completo</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">person</span>
+                            <input type="text" id="cadastroNome" class="input-field" placeholder="Seu nome" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="cadastroEmail">E-mail</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">mail</span>
+                            <input type="email" id="cadastroEmail" class="input-field" placeholder="seu@email.com" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="cadastroPassword">Senha</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" id="cadastroPassword" class="input-field" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="cadastroConfirmPassword">Confirmar senha</label>
+                        <div class="input-wrapper">
+                            <span class="material-symbols-outlined input-icon">lock</span>
+                            <input type="password" id="cadastroConfirmPassword" class="input-field" placeholder="••••••••" required>
+                        </div>
+                    </div>
+                    
+                    <div class="checkbox">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Eu aceito os termos de uso</label>
+                    </div>
+                    
+                    <button type="submit" class="btn-cadastro">
+                        Criar minha conta
+                    </button>
+                </form>
+            </div>
+            
+            
+            <div class="divider">
+                <span>Ou entre com</span>
+            </div>
+            
+            
+            <div class="social-buttons">
+                <button type="button" class="social-btn" onclick="alert('Login com Google (simulação)')">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBnvugNXUXqexvOa_NlNO23p62BMz8BVOrF1-4VlHR8fWk5KQkgvSzE1BNHjqKwixFdfc-7370m2KU9Bh-RdgbzYII7xhPEt_1UF0TbKJlyD8weMuo2lY2_SsxK7RN1ZDNGdFA8f3HHP9HLPZ3oXduPLLBU63HXlOuDkRGB9IHZ63dmExQpQcBiL6l-JDsZqsD1As-ihkEL3cCnDtuRm9wBZpUucUYfEfpHSxdFSoNVeqeiS17v9Id1n9bsRyvJylccEI1NGmX1kR8" alt="Google">
+                    <span class="text-sm font-bold text-marrom-principal opacity-70">Google</span>
+                </button>
+                <button type="button" class="social-btn" onclick="alert('Login com Facebook (simulação)')">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO8nCLicxfRwqptKnEPXNboI2lBG6YRP3VDQajEfl1nZXwlNNX3AK2-TwTwJaisC9qGbrCxMT6E5invDTEb-0ZE-ytMmGB0JzSmyGl9IRpxC9Hz-iyYjPEAhRJOI1PWnoEIiC7bWT6uYHBiAxbbG-Gq3VOP4Wvby2waDOn1xGqRJkX0-nkiox43ZY8vqTX2LRk4SftU_E2XwrpcjD8781MqjNtoaHvUDPmXsyVUc1b44OnnwKRbQWzziEj0TDXCN20MT-nQJ5YqQs" alt="Facebook">
+                    <span class="text-sm font-bold text-marrom-principal opacity-70">Facebook</span>
+                </button>
+            </div>
+            
+            
+            <p class="switch-link" id="switchText">
+                Ainda não tem uma conta? 
+                <a onclick="showCadastro()">Crie sua conta agora</a>
+            </p>
+            
+            <!-- Footer -->
+            <footer>
+                <p>© 2024 Amigo Pet • Todos os direitos reservados</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+<script>
+// Banco de dados simulado (em memória)
+let usuarios = [];
+
+// Função para mostrar alerta
+function showAlert(message, type) {
+    const alert = document.getElementById('alert');
+    alert.style.display = 'block';
+    alert.className = 'alert ' + (type === 'success' ? 'alert-success' : 'alert-error');
+    alert.textContent = message;
+    
+    setTimeout(() => {
+        alert.style.display = 'none';
+    }, 3000);
+}
+
+// Função para mostrar formulário de login
+function showLogin() {
+    document.getElementById('loginForm').style.display = 'block';
+    document.getElementById('cadastroForm').style.display = 'none';
+    
+    document.getElementById('tabLogin').className = 'tab tab-active';
+    document.getElementById('tabCadastro').className = 'tab tab-inactive';
+    
+    document.getElementById('formTitle').textContent = 'Bem-vindo de volta!';
+    document.getElementById('formSubtitle').textContent = 'Faça login para continuar ajudando nossos patudos.';
+    
+    document.getElementById('switchText').innerHTML = 'Ainda não tem uma conta? <a onclick="showCadastro()">Crie sua conta agora</a>';
+}
+
+// Função para mostrar formulário de cadastro
+function showCadastro() {
+    document.getElementById('loginForm').style.display = 'none';
+    document.getElementById('cadastroForm').style.display = 'block';
+    
+    document.getElementById('tabLogin').className = 'tab tab-inactive';
+    document.getElementById('tabCadastro').className = 'tab tab-active';
+    
+    document.getElementById('formTitle').textContent = 'Crie sua conta!';
+    document.getElementById('formSubtitle').textContent = 'Junte-se a nós e ajude nossos patudos.';
+    
+    document.getElementById('switchText').innerHTML = 'Já tem uma conta? <a onclick="showLogin()">Faça login</a>';
+}
+
+
+function fazerLogin(event) {
+    event.preventDefault();
+    
+    const email = document.getElementById('loginEmail').value;
+    const senha = document.getElementById('loginPassword').value;
+    
+    // Validação simples
+    if (!email || !senha) {
+        showAlert('Preencha todos os campos!', 'error');
+        return;
+    }
+    
+    // Procura o usuário no "banco de dados"
+    const usuario = usuarios.find(u => u.email === email && u.senha === senha);
+    
+    if (usuario) {
+        showAlert('Login realizado com sucesso! Redirecionando...', 'success');
+        
+        // Salva que o usuário está logado
+        localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+        
+        // Redireciona para a página inicial após 2 segundos
+        setTimeout(() => {
+            window.location.href = 'index.html';
+        }, 100);
+    } else {
+        showAlert('E-mail ou senha incorretos!', 'error');
+    }
+}
+
+// Função de cadastro
+function fazerCadastro(event) {
+    event.preventDefault();
+    
+    const nome = document.getElementById('cadastroNome').value;
+    const email = document.getElementById('cadastroEmail').value;
+    const senha = document.getElementById('cadastroPassword').value;
+    const confirmSenha = document.getElementById('cadastroConfirmPassword').value;
+    const termos = document.getElementById('terms').checked;
+    
+    // Validações
+    if (!nome || !email || !senha || !confirmSenha) {
+        showAlert('Preencha todos os campos!', 'error');
+        return;
+    }
+    
+    if (senha !== confirmSenha) {
+        showAlert('As senhas não coincidem!', 'error');
+        return;
+    }
+    
+    if (senha.length < 6) {
+        showAlert('A senha deve ter pelo menos 6 caracteres!', 'error');
+        return;
+    }
+    
+    if (!termos) {
+        showAlert('Você precisa aceitar os termos de uso!', 'error');
+        return;
+    }
+    
+    // Verifica se o e-mail já existe
+    if (usuarios.find(u => u.email === email)) {
+        showAlert('Este e-mail já está cadastrado!', 'error');
+        return;
+    }
+    
+    // Cria novo usuário
+    const novoUsuario = {
+        id: usuarios.length + 1,
+        nome: nome,
+        email: email,
+        senha: senha
+    };
+    
+    usuarios.push(novoUsuario);
+    
+    showAlert('Cadastro realizado com sucesso! Faça seu login.', 'success');
+    
+    // Limpa o formulário
+    document.getElementById('cadastroNome').value = '';
+    document.getElementById('cadastroEmail').value = '';
+    document.getElementById('cadastroPassword').value = '';
+    document.getElementById('cadastroConfirmPassword').value = '';
+    document.getElementById('terms').checked = false;
+    
+    // Volta para a tela de login após 2 segundos
+    setTimeout(() => {
+        showLogin();
+    }, 2000);
+}
+
+// Verifica se já tem usuários de exemplo (opcional)
+usuarios.push({
+    id: 0,
+    nome: 'Usuário Teste',
+    email: 'teste@email.com',
+    senha: '123456'
+});
+
+</script>
+
+<style>
+    /* Esconder logo no mobile quando estiver em desktop */
+    @media (min-width: 1024px) {
+        .lg-hide {
+            display: none !important;
+        }
+    }
+    
+    /* Ajuste para o link virar ponteiro */
+    .switch-link a {
+        cursor: pointer;
+    }
+    
+    /* Estilo para os tabs */
+    .tab {
+        font-size: 1rem;
+        background: none;
+        border: none;
+    }
+</style>
+
+</body>
+</html>

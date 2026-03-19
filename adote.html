@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- CSS próprio da página de adoção -->
+    <link rel="stylesheet" href="style-adote.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <title>Amigo Pet - Adote</title>
+    
+    <style>
+        /* AJUSTES PARA O LAYOUT COM FILTRO NA ESQUERDA */
+        .adote-layout {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .adote-layout {
+                flex-direction: row;
+            }
+        }
+        
+        .filters-sidebar {
+            width: 100%;
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(93, 64, 55, 0.1);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            height: fit-content;
+            position: sticky;
+            top: 6rem;
+        }
+        
+        @media (min-width: 1024px) {
+            .filters-sidebar {
+                width: 280px;
+                flex-shrink: 0;
+            }
+        }
+        
+        .pets-area {
+            flex: 1;
+            width: 100%;
+        }
+        
+        .filter-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--marrom-principal);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--laranja-secundario);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .filter-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .filter-label {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--marrom-principal);
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .filter-option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            padding: 0.25rem 0;
+        }
+        
+        .filter-option input[type="radio"] {
+            width: 1rem;
+            height: 1rem;
+            accent-color: var(--laranja-secundario);
+            cursor: pointer;
+        }
+        
+        .filter-option span {
+            font-size: 0.875rem;
+            color: #444;
+        }
+        
+        .filter-option:hover span {
+            color: var(--laranja-secundario);
+        }
+        
+        .filter-select {
+            width: 100%;
+            padding: 0.6rem 0.75rem;
+            background-color: var(--cinza-claro);
+            border: 1px solid rgba(93, 64, 55, 0.2);
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            color: #333;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        .filter-select:focus {
+            border-color: var(--laranja-secundario);
+            box-shadow: 0 0 0 2px rgba(251, 140, 0, 0.1);
+        }
+        
+        .results-count {
+            font-size: 0.875rem;
+            color: var(--marrom-principal);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+        }
+        
+        .pets-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+        
+        @media (min-width: 640px) {
+            .pets-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (min-width: 1024px) {
+            .pets-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+        
+        /* EASTER EGG - DINOSSAURO */
+        .easter-egg-image {
+            height: 16rem;
+            background-color: #1c1816;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            background-image: url('dino.jpeg');
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+        
+        .easter-egg-placeholder {
+            height: 16rem;
+            background-color: #1c1816;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 5rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+        
+        .easter-egg-card:hover .easter-egg-image {
+            opacity: 1;
+        }
+        
+        .easter-egg-card:hover .easter-egg-placeholder {
+            opacity: 0;
+        }
+        
+        .easter-egg-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: #1c1816;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 700;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        /* BOTÃO MOBILE (OPCIONAL) */
+        .mobile-filter-button {
+            display: none;
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--marrom-principal);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 1023px) {
+            .mobile-filter-button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-logo">
+            <span class="material-symbols-outlined logo-icon"></span>
+            <h2 class="text-xl font-bold tracking-tight">Amigo Pet</h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="adote.html" class="active">Adote</a>
+            <a href="about.html">Sobre nós</a>
+            <a href="doacao.html">Doar</a>
+        </div>
+
+        <div class="search-bar">
+            <span class="material-symbols-outlined" style="color: rgba(93, 64, 55, 0.6); font-size: 1.25rem;"></span>
+            <input type="text" id="searchInput" placeholder="Buscar por nome...">
+        </div>
+    </div>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main class="container" style="padding-top: 2.5rem; padding-bottom: 2.5rem;">
+
+    <!-- TÍTULO -->
+    <div style="margin-bottom: 2rem;">
+        <h1 class="text-4xl font-bold text-marrom-principal leading-tight" style="font-size: 2.5rem;">Dê uma segunda chance</h1>
+        <p class="text-lg" style="color: rgba(93, 64, 55, 0.7); max-width: 42rem;">Resgatamos animais de situações críticas, abandono e maus-tratos. Todos merecem respeito, cuidado e um lar amoroso.</p>
+    </div>
+
+    <!-- LAYOUT COM FILTRO NA ESQUERDA -->
+    <div class="adote-layout">
+        
+        <!-- FILTROS (LATERAL ESQUERDA) -->
+        <aside class="filters-sidebar">
+            <h3 class="filter-title">
+                <span class="material-symbols-outlined"></span> Filtros
+            </h3>
+            
+            <!-- FILTRO POR ESPÉCIE -->
+            <div class="filter-group">
+                <p class="filter-label">Espécie</p>
+                <div class="filter-options">
+                    <label class="filter-option">
+                        <input type="radio" name="petType" value="all" checked onchange="filterPets()"> 
+                        <span>Todos</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="petType" value="dog" onchange="filterPets()"> 
+                        <span>Cães</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="petType" value="cat" onchange="filterPets()"> 
+                        <span>Gatos</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="petType" value="special" onchange="filterPets()"> 
+                        <span>Casos Especiais</span>
+                    </label>
+                    <label class="filter-option">
+                        <input type="radio" name="petType" value="other" onchange="filterPets()"> 
+                        <span>Outros</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- FILTRO POR PORTE -->
+            <div class="filter-group">
+                <p class="filter-label">Porte</p>
+                <select id="sizeFilter" class="filter-select" onchange="filterPets()">
+                    <option value="all">Qualquer porte</option>
+                    <option value="Pequeno">Pequeno</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Grande">Grande</option>
+                    <option value="Gigante">Gigante</option>
+                </select>
+            </div>
+        </aside>
+
+        <!-- ÁREA DOS CARDS -->
+        <div class="pets-area">
+            
+            <!-- CONTADOR DE RESULTADOS -->
+            <p id="resultsCount" class="results-count">Carregando animais...</p>
+
+            <!-- GRID DE CARDS -->
+            <div class="pets-grid" id="petGrid">
+                
+                <!-- CARD 1 - Cururu (Cachorro) -->
+                <div class="pet-card" data-type="dog" data-size="Médio">
+                    <div class="pet-image">
+                        <img src="CachorroCururu.jpeg" alt="Cururu">
+                        <div class="pet-badge">Maus-tratos</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Cururu</h3>
+                        <p class="pet-description">Cachorro com má formação.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Cururu')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 2 - Aurora (Gata) -->
+                <div class="pet-card" data-type="cat" data-size="Médio">
+                    <div class="pet-image">
+                        <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&q=80&w=500" alt="Aurora">
+                        <div class="pet-badge pet-badge-purple">Mãe com Ninhada</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Aurora</h3>
+                        <p class="pet-description">Resgatada grávida das ruas.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Aurora')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 3 - Donatello (Tartaruga) -->
+                <div class="pet-card" data-type="other" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Tartaruga.jpeg" alt="Donatello">
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Donatello</h3>
+                        <p class="pet-description">Tartaruga abandonada em parque.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Donatello')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 4 - Zeus (Cachorro com chupeta) -->
+                <div class="pet-card" data-type="dog" data-size="Gigante">
+                    <div class="pet-image">
+                        <img src="CachorroChupetao.jpeg" alt="Zeus">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Zeus</h3>
+                        <p class="pet-description">Dogue Alemão deixado para trás que não larga sua chupeta.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Zeus')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 5 - Tigre (Gato Sênior) -->
+                <div class="pet-card" data-type="cat" data-size="Médio">
+                    <div class="pet-image">
+                        <img src="GatoSenior.jpeg" alt="Tigre">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Tigre</h3>
+                        <p class="pet-description">Gato sênior abandonado em uma via de acesso a uma rodovia.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Tigre')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 6 - Algodão (Coelho) -->
+                <div class="pet-card" data-type="other" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Coelho.jpeg" alt="Algodão">
+                        <div class="pet-badge pet-badge-green">Confisco Legal</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Algodão</h3>
+                        <p class="pet-description">Coelho salvo de venda ilegal.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Algodão')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 7 - Petboul (Cão diferente) -->
+                <div class="pet-card" data-type="special" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Petboul.jpeg" alt="Petboul">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Petboul</h3>
+                        <p class="pet-description">Isso ai é um rato, Não senhor é criança.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Petboul')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 8 - Cometa (Cavalo) -->
+                <div class="pet-card" data-type="other" data-size="Grande">
+                    <div class="pet-image">
+                        <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&q=80&w=500" alt="Cometa">
+                        <div class="pet-badge">Exploração Ilegal</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Cometa</h3>
+                        <p class="pet-description">Cavalo resgatado de tração de carroça.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Cometa')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 9 - Lupi (Cachorro) -->
+                <div class="pet-card" data-type="dog" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Lupi.jpeg" alt="Lupi">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Lupi</h3>
+                        <p class="pet-description">Cachorro abandonado na rua com seu irmãozinho.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Lupi')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 10 - Snoppy (Cachorro) -->
+                <div class="pet-card" data-type="dog" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Snoppy.jpeg" alt="Snoppy">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Snoppy</h3>
+                        <p class="pet-description">Cachorro abandonado na rua com seu irmãozinho.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Snoppy')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 11 - Juba (Cachorro) -->
+                <div class="pet-card" data-type="dog" data-size="Médio">
+                    <div class="pet-image">
+                        <img src="Juba.jpeg" alt="Juba">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Juba</h3>
+                        <p class="pet-description">Cachorro abandonado após sua dona falecer.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Juba')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 12 - Luke Skywalker (Cachorro) -->
+                <div class="pet-card" data-type="dog" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="LukeSkywalker.jpeg" alt="Luke Skywalker">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Luke Skywalker</h3>
+                        <p class="pet-description">Cachorro abandonado após seu pai se juntou a força.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Luke Skywalker')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- CARD 13 - Marrom (Cachorro) -->
+                <div class="pet-card" data-type="dog" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Marrom.jpeg" alt="Marrom">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Marrom</h3>
+                        <p class="pet-description">Dono não teve conta de cuidar do pet.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Marrom')">Adotar</button>
+                    </div>
+                </div>
+
+                <div class="pet-card" data-type="dog" data-size="Pequeno">
+                    <div class="pet-image">
+                        <img src="Maia.jpeg" alt="Maia">
+                        <div class="pet-badge">Abandonado</div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">Maia</h3>
+                        <p class="pet-description">Cachorro destruiu as ultimas 4 familias que teve.</p>
+                        <button class="btn-adotar" onclick="adotarPet('Maia')">Adotar</button>
+                    </div>
+                </div>
+
+                <!-- EASTER EGG CARD - O Observador (Dinossauro) 🦕 -->
+                <div class="easter-egg-card" data-type="special" data-size="Gigante" id="easterEgg">
+                    <div style="height: 16rem; overflow: hidden; position: relative;">
+                        <!-- Imagem do dinossauro (aparece no hover) -->
+                        <div class="easter-egg-image"></div>
+                        <!-- Placeholder enquanto não passa o mouse -->
+                        <div class="easter-egg-placeholder">
+                            <span class="material-symbols-outlined" style="font-size: 5rem;"></span>
+                        </div>
+                    </div>
+                    <div class="pet-info">
+                        <h3 class="pet-name">O Observador</h3>
+                        <p class="pet-description">Um resgate envolto em mistério e tempestade.</p>
+                        <div style="display: flex; gap: 0.5rem; margin: 0.75rem 0;">
+                            <span class="easter-egg-badge">🦕 Lenda Resgatada</span>
+                        </div>
+                        <button class="btn-disabled" disabled>Indisponível para adoção</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- MENSAGEM DE CONFIRMAÇÃO (escondida inicialmente) -->
+    <div id="adocaoMensagem" style="position: fixed; bottom: 2rem; right: 2rem; padding: 1rem; border-radius: 0.5rem; display: none; z-index: 100; box-shadow: 0 10px 25px rgba(0,0,0,0.2);"></div>
+
+</main>
+
+<script>
+    // PEGAR TODOS OS CARDS
+    const petCards = document.querySelectorAll('.pet-card, .easter-egg-card');
+    const typeRadios = document.querySelectorAll('input[name="petType"]');
+    const sizeSelect = document.getElementById('sizeFilter');
+    const searchInput = document.getElementById('searchInput');
+    const resultsCountText = document.getElementById('resultsCount');
+
+    // FUNÇÃO PARA FILTRAR PETS
+    function filterPets() {
+        const selectedType = document.querySelector('input[name="petType"]:checked').value;
+        const selectedSize = sizeSelect.value;
+        const searchTerm = (searchInput?.value || "").toLowerCase();
+        let count = 0;
+
+        petCards.forEach(card => {
+            const petType = card.getAttribute('data-type');
+            const petSize = card.getAttribute('data-size');
+            const petName = card.querySelector('h3')?.textContent.toLowerCase() || '';
+
+            const matchesType = selectedType === 'all' || petType === selectedType;
+            const matchesSize = selectedSize === 'all' || petSize === selectedSize;
+            const matchesSearch = petName.includes(searchTerm);
+
+            if (matchesType && matchesSize && matchesSearch) {
+                card.classList.remove('hidden-pet');
+                count++;
+            } else {
+                card.classList.add('hidden-pet');
+            }
+        });
+
+        resultsCountText.textContent = `Mostrando ${count} ${count === 1 ? 'animal' : 'animais'} aguardando um lar`;
+    }
+
+    // ADICIONAR EVENTOS AOS FILTROS
+    typeRadios.forEach(radio => radio.addEventListener('change', filterPets));
+    if (sizeSelect) sizeSelect.addEventListener('change', filterPets);
+    if (searchInput) searchInput.addEventListener('input', filterPets);
+
+    // FUNÇÃO PARA ADOTAR PET
+    function adotarPet(nomePet) {
+        // VERIFICA SE O USUÁRIO ESTÁ LOGADO
+        const usuarioLogado = localStorage.getItem('usuarioLogado');
+        const mensagemDiv = document.getElementById('adocaoMensagem');
+
+        if (!usuarioLogado) {
+            // USUÁRIO NÃO LOGADO
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.style.backgroundColor = '#f8d7da';
+            mensagemDiv.style.color = '#721c24';
+            mensagemDiv.style.border = '1px solid #f5c6cb';
+            mensagemDiv.innerHTML = `
+                ❌ Você precisa estar logado para adotar um pet.<br>
+                <a href="entrar.html" style="color: #721c24; font-weight: bold;">Fazer login</a>
+            `;
+        } else {
+            // USUÁRIO LOGADO
+            const usuario = JSON.parse(usuarioLogado);
+            
+            mensagemDiv.style.display = 'block';
+            mensagemDiv.style.backgroundColor = '#d4edda';
+            mensagemDiv.style.color = '#155724';
+            mensagemDiv.style.border = '1px solid #c3e6cb';
+            mensagemDiv.innerHTML = `
+                ✅ Parabéns, ${usuario.nome}!<br>
+                Você iniciou o processo de adoção do(a) ${nomePet}.<br>
+                <small>Entraremos em contato por e-mail.</small>
+            `;
+        }
+
+        // ESCONDE A MENSAGEM APÓS 5 SEGUNDOS
+        setTimeout(() => {
+            mensagemDiv.style.display = 'none';
+        }, 5000);
+    }
+
+    // INICIAR FILTROS
+    filterPets();
+
+    // EASTER EGG ESPECIAL - ALERTA QUANDO PASSAR O MOUSE NO CARD DO DINO
+    const easterCard = document.getElementById('easterEgg');
+    if (easterCard) {
+        easterCard.addEventListener('mouseenter', function() {
+            console.log('🦕 VOCÊ ENCONTROU O DINOSSAURO SECRETO! 🦕');
+        });
+    }
+</script>
+
+</body>
+</html>

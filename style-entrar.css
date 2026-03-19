@@ -1,0 +1,385 @@
+/* PALETA DE CORES OFICIAL - Amigo Pet */
+:root {
+    --marrom-principal: #5D4037;
+    --laranja-secundario: #FB8C00;
+    --cinza-claro: #F5F5F5;
+    --branco-puro: #FFFFFF;
+}
+
+/* ESTILOS BÁSICOS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--cinza-claro);
+}
+
+/* FLEXBOX */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 0.5rem; }
+.gap-3 { gap: 0.75rem; }
+.gap-4 { gap: 1rem; }
+
+/* CORES */
+.text-marrom-principal { color: var(--marrom-principal); }
+.text-laranja-secundario { color: var(--laranja-secundario); }
+.text-branco-puro { color: var(--branco-puro); }
+.text-cinza { color: #666; }
+
+.bg-marrom-principal { background-color: var(--marrom-principal); }
+.bg-laranja-secundario { background-color: var(--laranja-secundario); }
+.bg-branco-puro { background-color: var(--branco-puro); }
+.bg-cinza-claro { background-color: var(--cinza-claro); }
+
+/* TIPOGRAFIA */
+.text-3xl { font-size: 1.875rem; }
+.text-5xl { font-size: 3rem; }
+.text-xl { font-size: 1.25rem; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.uppercase { text-transform: uppercase; }
+.leading-tight { line-height: 1.25; }
+
+/* PÁGINA DE LOGIN */
+.login-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* LADO ESQUERDO (IMAGEM) */
+.login-left {
+    display: none;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--marrom-principal);
+}
+
+@media (min-width: 1024px) {
+    .login-left {
+        display: flex;
+        width: 50%;
+    }
+}
+
+.login-left img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.login-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(93,64,55,0.8), transparent);
+    z-index: 10;
+}
+
+.login-content {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    right: 3rem;
+    color: white;
+    z-index: 20;
+}
+
+.login-content h2 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 1rem;
+}
+
+.login-content p {
+    font-size: 1.25rem;
+    opacity: 0.9;
+}
+
+/* LADO DIREITO (FORMULÁRIO) */
+.login-right {
+    width: 100%;
+    padding: 3rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--cinza-claro);
+}
+
+@media (min-width: 1024px) {
+    .login-right {
+        width: 50%;
+    }
+}
+
+.login-form-container {
+    max-width: 448px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* TABS (ENTRAR / CRIAR CONTA) */
+.login-tabs {
+    display: flex;
+    border-bottom: 1px solid rgba(93, 64, 55, 0.1);
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.tab {
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0.75rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    background: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    font-size: 1rem;
+}
+
+.tab-active {
+    border-bottom-color: var(--marrom-principal);
+    color: var(--marrom-principal);
+}
+
+.tab-inactive {
+    color: rgba(93, 64, 55, 0.4);
+}
+
+.tab-inactive:hover {
+    color: rgba(93, 64, 55, 0.6);
+}
+
+/* FORMULÁRIO */
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--marrom-principal);
+    margin-bottom: 0.5rem;
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(93, 64, 55, 0.4);
+}
+
+.input-field {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(93, 64, 55, 0.1);
+    background-color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s;
+}
+
+.input-field:focus {
+    border-color: var(--marrom-principal);
+    box-shadow: 0 0 0 2px rgba(93, 64, 55, 0.1);
+}
+
+.forgot-password {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--laranja-secundario);
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.checkbox input {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(93, 64, 55, 0.2);
+}
+
+.checkbox label {
+    font-size: 0.875rem;
+    color: rgba(93, 64, 55, 0.7);
+}
+
+/* BOTÕES */
+.btn-login {
+    width: 100%;
+    background-color: var(--marrom-principal);
+    color: white;
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.btn-login:hover {
+    background-color: rgba(93, 64, 55, 0.9);
+}
+
+.btn-cadastro {
+    width: 100%;
+    background-color: var(--laranja-secundario);
+    color: white;
+    font-weight: 700;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.btn-cadastro:hover {
+    background-color: rgba(251, 140, 0, 0.9);
+}
+
+/* DIVISOR */
+.divider {
+    position: relative;
+    padding: 1rem 0;
+    text-align: center;
+}
+
+.divider::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: rgba(93, 64, 55, 0.1);
+}
+
+.divider span {
+    position: relative;
+    background-color: var(--cinza-claro);
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: rgba(93, 64, 55, 0.4);
+}
+
+/* BOTÕES SOCIAIS */
+.social-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.social-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(93, 64, 55, 0.1);
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.social-btn:hover {
+    background-color: #f9f9f9;
+}
+
+.social-btn img {
+    width: 1.25rem;
+    height: 1.25rem;
+}
+
+/* LINK DE TROCA */
+.switch-link {
+    text-align: center;
+    margin-top: 2rem;
+    color: rgba(93, 64, 55, 0.6);
+    font-size: 0.875rem;
+}
+
+.switch-link a {
+    color: var(--laranja-secundario);
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.switch-link a:hover {
+    text-decoration: underline;
+}
+
+/* FOOTER */
+footer {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+footer p {
+    font-size: 0.75rem;
+    color: rgba(93, 64, 55, 0.4);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* ALERTA */
+.alert {
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    display: none;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* UTILITÁRIOS */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.p-2 { padding: 0.5rem; }
+.rounded-lg { border-radius: 0.5rem; }
+.backdrop-blur-md { backdrop-filter: blur(12px); }

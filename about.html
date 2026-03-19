@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    
+    <!-- CSS próprio da página sobre nós -->
+    <link rel="stylesheet" href="style-about.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <title>Amigo Pet - Sobre Nós</title>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <div class="navbar-container">
+        <div class="navbar-logo">
+            <span class="material-symbols-outlined logo-icon">pets</span>
+            <h2 class="text-xl font-bold">Amigo Pet</h2>
+        </div>
+
+        <div class="nav-links">
+            <a href="index.html">Início</a>
+            <a href="adote.html">Adote</a>
+            <a href="about.html" class="active">Sobre Nós</a>
+            <a href="doacao.html">Doar</a>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 2rem;">
+            <button class="nav-button" onclick="window.location.href='doacao.html'">
+                <span>Doar Agora</span>
+            </button>
+            <button class="mobile-menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-image">
+        <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA6jXDllHv479Zp-VQt-kvCtgv8YFAcRAxHi7NuawwbQNEgk2pMrLLLpEQnZqHavRi01dJBggmeNntg-faRw1E6WTloVYcQUCGZrdxU5bm9aAqYns0-6g_c_J7nsU4HnmYn9_L_tWW4viC016k9OlGUw8d8RGGvEc15WOde1OSTXawuMwNGkVe7qHgia6CmHNcwlBZU729kVYQvgOEkOXfIgd6AZMeRNZak-h3RKeSu35HqG8xHF-CjPqgyAB6OufSms0Ua5stpChM" alt="Cão e gato resgatados">
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>Transformando vidas através do amor animal</h1>
+        <p>Conheça a história da Amigo Pet e nossa missão incansável de resgatar, cuidar e proteger animais em situação de risco.</p>
+        <div class="hero-buttons">
+            <button class="btn btn-laranja" onclick="document.getElementById('missao').scrollIntoView({behavior: 'smooth'})">Nossa Missão</button>
+            <button class="btn btn-outline" onclick="document.getElementById('ajudar').scrollIntoView({behavior: 'smooth'})">Como Ajudar</button>
+        </div>
+    </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="story-section" id="missao">
+    <div class="container">
+        <div class="story-grid">
+            <div>
+                <span class="story-badge">DESDE 2015</span>
+                <h2 class="story-title">Nossa História</h2>
+                <div class="story-text">
+                    <p class="mb-4">
+                        A Amigo Pet nasceu do sonho de um pequeno grupo de voluntários que não podia mais ignorar o sofrimento dos animais nas ruas de nossa cidade. O que começou com um resgate individual de uma cadela ferida, hoje se transformou em uma rede de esperança.
+                    </p>
+                    <p class="mb-4">
+                        Ao longo desses anos, enfrentamos desafios imensos, desde a falta de recursos até superlotação, mas nunca desistimos. Cada olhar de gratidão de um animal recuperado é o combustível que nos mantém avançando.
+                    </p>
+                    <p>
+                        Hoje, contamos com um abrigo estruturado e uma equipe dedicada que já facilitou o encontro de mais de 1.500 animais com suas novas famílias.
+                    </p>
+                </div>
+            </div>
+            <div class="story-image-container">
+                <img class="story-image" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCK_if2KX5SVmGc0Nqhfkmy4CSRY6bgXjPfCY5itcjJo4PIpD1BAnJE5Hbjyj0I7gZ0OwDb4_7vLR00N-9V1r1qaHJTDvIWRFkjJhdV7zqtYooVQwKJnXIIIva18nce-SwCaQerfbWUPtgGgW1yQik4r4wYdeUXIzsxa2YhTm2btYxG_pnM3Vn2dbDqcTPB-NOLrr7em98gQtv7XifZlvUZMizZJQIFOmvj6esmDF79j0OW1K1GN8m_S13RcM3Ql7M1JJWC0XmmzO4" alt="Voluntário abraçando cachorro">
+                <div class="story-stats">
+                    <p>+1.500</p>
+                    <p>Vidas Transformadas</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- VALUES SECTION -->
+<section class="values-section">
+    <div class="container">
+        <h2 class="values-title">Nossos Valores</h2>
+        <div class="values-grid">
+            <!-- Value 1 -->
+            <div class="value-card">
+                <div class="value-icon">
+                    <span class="material-symbols-outlined">favorite</span>
+                </div>
+                <h3>Amor Incondicional</h3>
+                <p>Acreditamos que todo ser vivo merece ser tratado com afeto e dignidade, independente de sua condição ou raça.</p>
+            </div>
+            <!-- Value 2 -->
+            <div class="value-card">
+                <div class="value-icon">
+                    <span class="material-symbols-outlined">health_and_safety</span>
+                </div>
+                <h3>Cuidado Integral</h3>
+                <p>Não apenas resgatamos, mas garantimos saúde, nutrição e bem-estar psicológico para cada animal em nosso cuidado.</p>
+            </div>
+            <!-- Value 3 -->
+            <div class="value-card">
+                <div class="value-icon">
+                    <span class="material-symbols-outlined">handshake</span>
+                </div>
+                <h3>Dedicação</h3>
+                <p>Compromisso 24/7 com a causa animal, atuando na linha de frente contra o abandono e maus-tratos.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TEAM SECTION -->
+<section class="team-section">
+    <div class="container">
+        <h2 class="team-title">Quem Faz Acontecer</h2>
+        <p class="team-subtitle">Conheça os rostos por trás da nossa missão. Uma equipe apaixonada que dedica sua vida aos animais.</p>
+        
+        <div class="team-grid">
+            <!-- Member 1 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDagUaaAVhMBGE3wu57nINK8TWxooDQRQE32GzPVc2nYt4UtvKbsiD9dK-NCkZPFbMxV4IUgjL4zZE0NN4tHNPZAUlkw6H7mABj8xsMOiKI7j9LHY9XxUOoxNanZ2WpcDp5-G3jFL7pn9VuueaPZSqkcWPz3C2W_lBvMi9Y5LyxfSvKFhTbIQAShrqiGJAg-w9p_0HDuEoS60GYk6MkwZ5JpzmIxCA6o70ab9MXK39LogpiDrU6FmW5ryAQn-A6Zww91rHsapkeoRs" alt="Dra. Beatriz Santos">
+                </div>
+                <h4 class="member-name">Dra. Beatriz Santos</h4>
+                <p class="member-role">Fundadora & Veterinária</p>
+            </div>
+            
+            <!-- Member 2 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC5SSzYtWtR1-XkCzJPbrWcMul0wbVR5Vz13qeT0BLcB5tM-bp-VV_WnVzY40yUp--GsPvdxu_FQoXvqOZQBJwJ4lmyIqweOesxDYbXL12yGVFsWLluV1FCPiFYE9hZNOWcBMR1hHj9geOjr-_fIKwFYHFxAkhVIi-p2IntpOH5gRnPjS7peaN6Dcy54FFiKeNV1x9noJWyb3HR0TcS9SgLg_J2LgwyEVEURRRUQuOasa0LSpPZcmu7-b-vAHKELl6VgY5cso4Msmg" alt="Ricardo Lima">
+                </div>
+                <h4 class="member-name">Ricardo Lima</h4>
+                <p class="member-role">Coordenador de Resgates</p>
+            </div>
+            
+            <!-- Member 3 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDGnMfQsx4QdHx-oPmuC4uP5RReD-l9PnSdY7bgTHUi-QLWULe8GvUr6N0AX4Gde4FDB5m8TuWzu2L-ZunsgPlo67qY_TEoUHU6jsT4-EFe-z2OYzfm6nsbmUNxF2mt2-n4ECx2bj1sROnHgl08cRz89NPObwFKvvqz2rP4YNGkx7C-K4jeqhPLm-pvVDOjTsso7Bje7QjGwpRCdAWs_6X_OF6IRw6wzzINL4NSP-yWjXuGl6qUpYIk7xOSMgFe1K0eGLV3uLQA_xo" alt="Ana Paula Rosa">
+                </div>
+                <h4 class="member-name">Ana Paula Rosa</h4>
+                <p class="member-role">Responsável por Adoções</p>
+            </div>
+            
+            <!-- Member 4 -->
+            <div class="team-member">
+                <div class="member-image">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDmtBXEXpOaYffy1QpBC0SuJ7nvqnzQcsLiSdNk1h_BInl5ctcNYz2MPTvNTg
